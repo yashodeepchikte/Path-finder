@@ -10,6 +10,12 @@
 	<button id="reset" onclick="resetMaze()">Reset Maze</button>
 	<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
 	<button onclick="Astar()">Run A*</button>
+	<br/>
+	<p>Set delay in milli seconds: <input type="number" onchange="handelSpeedChange(value)" value = delay placeholder="delay = 10ms default" /></p>
+	<p>number of rows:  <input type="number" onchange="handelRowsChange(value)"  placeholder="rows = 25 by default" /></p>
+	<p>number of columns:  <input type="number" onchange="handelColumnssChange(value)"  placeholder="columns = 50 by default" /></p>
+	<p>Probability threshold for random maze:  <input type="number" onchange="handelThresholdChange(value)"  placeholder="Threshold = 0.2 by default" /></p>
+	
 	<script src="scripts/main.js"></script>
 	<script src="scripts/board.js"></script>
 	<script src="scripts/Astar.js"></script>

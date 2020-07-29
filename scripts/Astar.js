@@ -16,93 +16,108 @@ function hurestics(a, b){
 	return dist1
 }
 
+
+var solved = false
+var openSet = [tiles[start[0]][start[1]] ]  // this is changed in these functinons :-  handelMouseMoveStart, resetMaze 
+var closedSet = []
+
+function showPath(){
+	console.log("Show path was called ")
+	var temp = tiles[end[0]][end[1]]
+	tiles[end[0]][end[1]].state ="end"
+	const abc = () =>{
+		tiles[end[0]][end[1]].state="end"	
+		if(!temp.previous){
+			return
+		}
+		tiles[temp.column][temp.row].state = "path"
+		temp = tiles[temp.column][temp.row].previous
+		setTimeout(abc, 10)		
+	}
+	abc()
+}
+isRunning = true
+
 function Astar(){
 	console.log("running A*")
+
+	if(openSet.length ==0){
+		console.log("open set is empty")
+		// alert("open set is empty thus no solution")
+		return
+	}
+	if(solved == true){
+		solved = false
+		console.log("solved = true")
+		openset = []
+		return
+	}
+	if( !isRunning ){
+		// console.log("isRunning is false")
+		return
+	}
 	isRunning = true
-	var solved = false
-	var openSet = [tiles[start[0]][start[1]] ]
-	var closedSet = []
 
-	while(openSet.length != 0 && !solved){
-
-		//  First we will find the node in the openset having the lowest f value
-		minIndex = 0
-		for(var i=0; i<openSet.length; i++){
-			if (openSet[i].f < openSet[minIndex].f){
-				minIndex = i
-			}
+	//  First we will find the node in the openset having the lowest f value
+	minIndex = 0
+	for(var i=0; i<openSet.length; i++){
+		if (openSet[i].f < openSet[minIndex].f){
+			minIndex = i
 		}
+	}
 
-		currentNode = openSet[minIndex]
-		
-		if(currentNode.column == tiles[end[0]][end[1]].column && currentNode.row == tiles[end[0]][end[1]].row){
-			solved = true
-			isRunning = false		
-			break
-		}
-		if(closedSet.length > tileRowCount*tileColumnCount){
-			isRunning = false
-			solved = false
-			break	
-		}
+	currentNode = openSet[minIndex]
 
-		removeElmentFromArray(openSet, currentNode)
-		// console.log("Tiles inside the astar = ", tiles)
-		// console.log("current node = ", currentNode)
-		console.log("---------------------------------------")
-		console.log("open set = ", openSet)
-		console.log("openset.length = ", openSet.length)
-		console.log("closed set = ", closedSet)		
-		console.log("closedSet.length = ", closedSet.length)
-		console.log("----------------------------------------\n")
-		closedSet.push(tiles[currentNode.column][currentNode.row])
-		if(tiles[currentNode.column][currentNode.row].state!="start" &&	 tiles[currentNode.column][currentNode.row].state !="end"){
+	if(currentNode.column == tiles[end[0]][end[1]].column && currentNode.row == tiles[end[0]][end[1]].row){
+		solved = true
+		isRunning = false		
+		showPath()
+		openSet=[]
 
-			tiles[currentNode.column][currentNode.row].state = "visited"
-		}
+		return
+	}
+	if(closedSet.length > tileRowCount*tileColumnCount){
+		isRunning = false
+		solved = false
+		console.log("Algorithm checking for more than possible case this is a bug and needs to be fixed")
+		return
+	}
 
-		var neighbours = currentNode.neighbours
+	removeElmentFromArray(openSet, currentNode)
+	closedSet.push(tiles[currentNode.column][currentNode.row])
+	if(tiles[currentNode.column][currentNode.row].state!="start" &&	 tiles[currentNode.column][currentNode.row].state !="end"){
+		tiles[currentNode.column][currentNode.row].state = "visited"
+	}
+	var neighbours = currentNode.neighbours
+	for(var i=0; i<neighbours.length; i++){
+		if(tiles[neighbours[i].column][neighbours[i].row].state != "wall" && !closedSet.includes(tiles[neighbours[i].column][neighbours[i].row])){
+			var tempG = tiles[currentNode.column][currentNode.row].g + hurestics(tiles[currentNode.column][currentNode.row] ,tiles[neighbours[i].column][neighbours[i].row])
+			var newPathBetter = false
 
-		for(var i=0; i<neighbours.length; i++){
-
-			if(tiles[neighbours[i].column][neighbours[i].row].state != "wall" && !closedSet.includes(tiles[neighbours[i].column][neighbours[i].row])){
-				var tempG = tiles[currentNode.column][currentNode.row].g + hurestics(tiles[currentNode.column][currentNode.row] ,tiles[neighbours[i].column][neighbours[i].row])
-				var newPathBetter = false
-
-				if(openSet.includes(tiles[neighbours[i].column][neighbours[i].row])){
-					//  this block will run only of the node is already in the open set meaning we already have a path for this node
-					//  the hurestic will remain the same but the value of g will be differet
-					// we should change this value only if the g value is lesser than the already existing g value
-					if(tempG<tiles[neighbours[i].column][neighbours[i].row].g){
-						newPathBetter = true
-						tiles[neighbours[i].column][neighbours[i].row].g = tempG
-					}
-				}else{
-					newPathBetter = true // since this will be the only path we have for the node
+			if(openSet.includes(tiles[neighbours[i].column][neighbours[i].row])){
+				//  this block will run only of the node is already in the open set meaning we already have a path for this node
+				//  the hurestic will remain the same but the value of g will be differet
+				// we should change this value only if the g value is lesser than the already existing g value
+				if(tempG<tiles[neighbours[i].column][neighbours[i].row].g){
+					newPathBetter = true
 					tiles[neighbours[i].column][neighbours[i].row].g = tempG
-					openSet.push(tiles[neighbours[i].column][neighbours[i].row])
-					tiles[neighbours[i].column][neighbours[i].row].state="open"
 				}
-				
-				if(newPathBetter){
-					tiles[neighbours[i].column][neighbours[i].row].h = hurestics(tiles[neighbours[i].column][neighbours[i].row], tiles[end[0]][end[1]])
-					tiles[neighbours[i].column][neighbours[i].row].f = tiles[neighbours[i].column][neighbours[i].row].g + tiles[neighbours[i].column][neighbours[i].row].h
-					tiles[neighbours[i].column][neighbours[i].row].previous = tiles[currentNode.column][currentNode.row]
-				}
+			}else{
+				newPathBetter = true // since this will be the only path we have for the node
+				tiles[neighbours[i].column][neighbours[i].row].g = tempG
+				openSet.push(tiles[neighbours[i].column][neighbours[i].row])
+				tiles[neighbours[i].column][neighbours[i].row].state="open"
+			}
+			
+			if(newPathBetter){
+				tiles[neighbours[i].column][neighbours[i].row].h = hurestics(tiles[neighbours[i].column][neighbours[i].row], tiles[end[0]][end[1]])
+				tiles[neighbours[i].column][neighbours[i].row].f = tiles[neighbours[i].column][neighbours[i].row].g + tiles[neighbours[i].column][neighbours[i].row].h
+				tiles[neighbours[i].column][neighbours[i].row].previous = tiles[currentNode.column][currentNode.row]
 			}
 		}
 	}
-
-	if(solved == false){
-		alert("no solution")
-	}else{
-		var temp = tiles[end[0]][end[1]].previous
-		tiles[end[0]][end[1]].state ="end"
-		while(temp.previous){
-			tiles[temp.column][temp.row].state = "path"
-			temp = tiles[temp.column][temp.row].previous
-		}
-	}
-	isRunning = false
-
+	
+	setTimeout(Astar, delay)
+	// sleep(100)
+	// Astar()
 }

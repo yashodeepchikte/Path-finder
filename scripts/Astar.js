@@ -17,59 +17,92 @@ function hurestics(a, b){
 }
 
 function Astar(){
-	
+	console.log("running A*")
 	isRunning = true
-	let solved = false
-	let openSet = [tiles[start[0]][start[1]]]
-	let closedSet = []
-	let current = openSet[0]
-	const goal = tiles[end[0]][end[1]]
+	var solved = false
+	var openSet = [tiles[start[0]][start[1]] ]
+	var closedSet = []
 
-	while(openSet.length > 0){
-		if(!isRunning){
+	while(openSet.length != 0 && !solved){
+
+		//  First we will find the node in the openset having the lowest f value
+		minIndex = 0
+		for(var i=0; i<openSet.length; i++){
+			if (openSet[i].f < openSet[minIndex].f){
+				minIndex = i
+			}
+		}
+
+		currentNode = openSet[minIndex]
+		
+		if(currentNode.column == tiles[end[0]][end[1]].column && currentNode.row == tiles[end[0]][end[1]].row){
+			solved = true
+			isRunning = false		
 			break
 		}
-		if (current.column == goal.column && current.row == goal.row){
+		if(closedSet.length > tileRowCount*tileColumnCount){
 			isRunning = false
-			solved = true
+			solved = false
+			break	
 		}
 
-		removeElmentFromArray(openSet, current)
-		closedSet.push(current)
+		removeElmentFromArray(openSet, currentNode)
+		// console.log("Tiles inside the astar = ", tiles)
+		// console.log("current node = ", currentNode)
+		console.log("---------------------------------------")
+		console.log("open set = ", openSet)
+		console.log("openset.length = ", openSet.length)
+		console.log("closed set = ", closedSet)		
+		console.log("closedSet.length = ", closedSet.length)
+		console.log("----------------------------------------\n")
+		closedSet.push(tiles[currentNode.column][currentNode.row])
+		if(tiles[currentNode.column][currentNode.row].state!="start" &&	 tiles[currentNode.column][currentNode.row].state !="end"){
 
-		var neighbours = current.neighbours
-		for (let i=0; i< neighbours.length; i++){
-			var neighbour = neighbours[i]
+			tiles[currentNode.column][currentNode.row].state = "visited"
+		}
 
-			if(!closedSet.includes(neighbour) && neighbour.state !=="wall"){
-				var tempG = (current.g ) + hurestics(current, neighbour);
+		var neighbours = currentNode.neighbours
+
+		for(var i=0; i<neighbours.length; i++){
+
+			if(tiles[neighbours[i].column][neighbours[i].row].state != "wall" && !closedSet.includes(tiles[neighbours[i].column][neighbours[i].row])){
+				var tempG = tiles[currentNode.column][currentNode.row].g + hurestics(tiles[currentNode.column][currentNode.row] ,tiles[neighbours[i].column][neighbours[i].row])
 				var newPathBetter = false
-				if (openSet.includes(neighbour)){
-					if(tempG < neighbour.g){
+
+				if(openSet.includes(tiles[neighbours[i].column][neighbours[i].row])){
+					//  this block will run only of the node is already in the open set meaning we already have a path for this node
+					//  the hurestic will remain the same but the value of g will be differet
+					// we should change this value only if the g value is lesser than the already existing g value
+					if(tempG<tiles[neighbours[i].column][neighbours[i].row].g){
 						newPathBetter = true
-						tiles[neighbour.column][neighbourer.row].g =  tempG
+						tiles[neighbours[i].column][neighbours[i].row].g = tempG
 					}
+				}else{
+					newPathBetter = true // since this will be the only path we have for the node
+					tiles[neighbours[i].column][neighbours[i].row].g = tempG
+					openSet.push(tiles[neighbours[i].column][neighbours[i].row])
+					tiles[neighbours[i].column][neighbours[i].row].state="open"
 				}
-
-			}else{
-				newPathBetter = true // since this is the only path known so far we say it is better
-				tiles[neighbourer.column][neighbourer.row].g = tempG
-				openSet.push(neighbour)
-			}
-
-			if(newPathBetter){
-				tiles[neighbourer.column][neighbourer.row].h = hurestics(neighbour, goal) 
-				tiles[neighbourer.column][neighbourer.row].f = hurestics(neighbour, goal) +  tiles[neighbourer.column][neighbourer.row].g
-				tiles[neighbourer.column][neighbourer.row].previous = current 
+				
+				if(newPathBetter){
+					tiles[neighbours[i].column][neighbours[i].row].h = hurestics(tiles[neighbours[i].column][neighbours[i].row], tiles[end[0]][end[1]])
+					tiles[neighbours[i].column][neighbours[i].row].f = tiles[neighbours[i].column][neighbours[i].row].g + tiles[neighbours[i].column][neighbours[i].row].h
+					tiles[neighbours[i].column][neighbours[i].row].previous = tiles[currentNode.column][currentNode.row]
+				}
 			}
 		}
 	}
 
-	let winnerIndex = 0
-	for(var i=0; i<openSet.length; i++){
-		if(openSet[i]){
-			
+	if(solved == false){
+		alert("no solution")
+	}else{
+		var temp = tiles[end[0]][end[1]].previous
+		tiles[end[0]][end[1]].state ="end"
+		while(temp.previous){
+			tiles[temp.column][temp.row].state = "path"
+			temp = tiles[temp.column][temp.row].previous
 		}
 	}
+	isRunning = false
 
 }

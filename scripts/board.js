@@ -57,7 +57,7 @@ function rect(x, y, w, h, state){
     else if(state == "wall"){ctx.fillStyle = "black"}
     else if(state == "empty"){ctx.fillStyle = "#AAAAAA"}
     else if(state =="visited"){ctx.fillStyle = "blue"}
-    else if(state == "closed"){ctx.fillStyle = "orange"}
+    else if(state == "open"){ctx.fillStyle = "orange"}
     else if(state == "current"){ctx.fillStyle = "purple"}
     else if(state == "path"){ctx.fillStyle = "green"}
 

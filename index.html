@@ -7,9 +7,13 @@
 </head>
 <body>
 	<canvas id="canvas" width="1200" height="1200"></canvas>
+	<br />
 	<button id="reset" onclick="resetMaze()">Reset Maze</button>
 	<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
 	<button onclick="Astar()">Run A*</button>
+	<!-- <button onclick="PrimsMazeGeneration()">Generate maze using Prims Algorithm</button> -->
+	<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
+	<button onclick="createBlackMaze()">Cover entire maze</button>
 	<br/>
 	<p>Set delay in milli seconds: <input type="number" onchange="handelSpeedChange(value)" value = delay placeholder="delay = 10ms default" /></p>
 	<p>number of rows:  <input type="number" onchange="handelRowsChange(value)"  placeholder="rows = 25 by default" /></p>
@@ -19,5 +23,7 @@
 	<script src="scripts/main.js"></script>
 	<script src="scripts/board.js"></script>
 	<script src="scripts/Astar.js"></script>
+	<script src="scripts/prims_maze_generation.js"></script>
+	<script src="scripts/depthFirstSearch_MazeGenerator.js"></script>
 </body>
 </html>

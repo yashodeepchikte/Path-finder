@@ -13,7 +13,9 @@ let isRunning = false
 
 
 tileRowCount = 20
-tileColumnCount = 50
+tileColumnCount = 40
+
+cellSeperation = 3
 
 tileW = 20;
 tileH = 20;
@@ -35,7 +37,7 @@ function handelRowsChange(rows){
     for(var c=0; c<tileColumnCount; c++){
         tiles[c] = []
         for(var r=0; r<tileRowCount; r++){
-            tiles[c][r] = {x: c*(tileW+3)  , y: r*(tileH+3), state: "empty", h:0, f:0, g:0, column:c, row:r}  
+            tiles[c][r] = {x: c*(tileW+cellSeperation)  , y: r*(tileH+cellSeperation), state: "empty", h:0, f:0, g:0, column:c, row:r}  
         }
     }
     
@@ -64,7 +66,7 @@ function handelColumnssChange(columns){
     for(var c=0; c<tileColumnCount; c++){
         tiles[c] = []
         for(var r=0; r<tileRowCount; r++){
-            tiles[c][r] = {x: c*(tileW+3)  , y: r*(tileH+3), state: "empty", h:0, f:0, g:0, column:c, row:r}  
+            tiles[c][r] = {x: c*(tileW+cellSeperation)  , y: r*(tileH+cellSeperation), state: "empty", h:0, f:0, g:0, column:c, row:r}  
         }
     }
     
@@ -93,7 +95,7 @@ function handelThresholdChange(value){
 for(var c=0; c<tileColumnCount; c++){
     tiles[c] = []
     for(var r=0; r<tileRowCount; r++){
-        tiles[c][r] = {x: c*(tileW+3)  , y: r*(tileH+3), state: "empty", h:0, f:0, g:0, column:c, row:r}  
+        tiles[c][r] = {x: c*(tileW+cellSeperation)  , y: r*(tileH+cellSeperation), state: "empty", h:0, f:0, g:0, column:c, row:r}  
     }
 }
 
@@ -127,6 +129,7 @@ function rect(x, y, w, h, state){
     else if(state == "open"){ctx.fillStyle = "orange"}
     else if(state == "current"){ctx.fillStyle = "purple"}
     else if(state == "path"){ctx.fillStyle = "green"}
+    else if(state == "frozen"){ctx.fillStyle = "green"}
 
     ctx.beginPath();
     ctx.rect(x, y, w, h)

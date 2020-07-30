@@ -40,6 +40,7 @@ isRunning = true
 
 function Astar(){
 	console.log("running A*")
+	
 
 	if(openSet.length ==0){
 		console.log("open set is empty")

@@ -12,8 +12,8 @@ const HEIGHT = 800;
 let isRunning = false
 
 
-tileRowCount = 20
-tileColumnCount = 40
+tileRowCount = 25
+tileColumnCount = 50
 
 cellSeperation = 3
 

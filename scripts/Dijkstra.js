@@ -21,11 +21,11 @@ function dijkstras(){
     }
 
     const recursiveFunction = () => {
-        console.log("\n\nOpenSet = ", openSet)
+        // console.log("\n\nOpenSet = ", openSet)
 
-        for (let i = 0; i < openSet.length; i++){
-            console.log("Openset element = ", openSet[i])
-        }
+        // for (let i = 0; i < openSet.length; i++){
+        //     console.log("Openset element = ", openSet[i])
+        // }
         if(openSet.length == 0){
             _isRunning = false
             console.log("Debug : returning because the openset is empty")
@@ -67,8 +67,8 @@ function dijkstras(){
         }
 
         var neighbours = currentNode.neighbours
-        console.log("current node = ", currentNode)
-        console.log("Neighbours = ", neighbours)
+        // console.log("current node = ", currentNode)
+        // console.log("Neighbours = ", neighbours)
 
         for(var i=0; i<neighbours.length; i++){
 
@@ -84,7 +84,7 @@ function dijkstras(){
                     newPathBetter = true
                     tiles[neighbours[i].column][neighbours[i].row].g = tempG
                     openSet.push(tiles[neighbours[i].column][neighbours[i].row])
-                    console.log("Pusing - ", neighbours[i])
+                    // console.log("Pusing - ", neighbours[i])
                     tiles[neighbours[i].column][neighbours[i].row].state="open"
                 }
 

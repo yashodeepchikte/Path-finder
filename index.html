@@ -7,7 +7,7 @@
 </head>
 <body>
 	<canvas id="canvas" width="1200" height="1200"></canvas>
-	<video></video>
+	<br />
 	<br />
 	<button id="reset" onclick="resetMaze()">Reset Maze</button>
 	<button id="reset" onclick="clearPath()">Clear Path</button>
@@ -23,11 +23,42 @@
 	<button onclick="recursiveBacktracker()">Run Recursive backtracker maze generation</button>
 
 	<button onclick="createBlackMaze()">Cover entire maze</button>
+	<br />
 	<br/>
-	<p>Set delay in milli seconds: <input type="number" onchange="handelSpeedChange(value)" value = delay placeholder="delay = 10ms default" /></p>
-	<p>number of rows:  <input type="number" onchange="handelRowsChange(value)"  placeholder="rows = 25 by default" /></p>
-	<p>number of columns:  <input type="number" onchange="handelColumnssChange(value)"  placeholder="columns = 50 by default" /></p>
-	<p>Probability threshold for random maze:  <input type="number" onchange="handelThresholdChange(value)"  placeholder="Threshold = 0.2 by default" /></p>
+	<table>
+		<tr>
+			<td>
+				Set delay in milli seconds:
+			</td>
+			<td>
+				<input type="number" onchange="handelSpeedChange(value)" value = delay placeholder="delay = 10ms default" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				number of rows:  
+			</td>
+			<td>
+				<input type="number" onchange="handelRowsChange(value)"  placeholder="rows = 25 by default" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				number of columns:  
+			</td>
+			<td>
+				<input type="number" onchange="handelColumnssChange(value)"  placeholder="columns = 50 by default" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Prob. threshold for random maze:  
+			</td>
+			<td>
+				<input type="number" onchange="handelThresholdChange(value)"  placeholder="Threshold = 0.2 by default" />
+			</td>
+		</tr>
+	</table>
 	
 	<script src="scripts/main.js"></script>
 	<script src="scripts/board.js"></script>

@@ -123,10 +123,10 @@ function rect(x, y, w, h, state){
     // console.log("state = ", state)
     if(state == "start"){ctx.fillStyle = "green"}
     else if(state == "end"){ctx.fillStyle = "red"}
-    else if(state == "wall"){ctx.fillStyle = "black"}
+    else if(state == "wall"){ctx.fillStyle = "#36454f"}
     else if(state == "empty"){ctx.fillStyle = "#AAAAAA"}
-    else if(state =="visited"){ctx.fillStyle = "blue"}
-    else if(state == "open"){ctx.fillStyle = "orange"}
+    else if(state =="visited"){ctx.fillStyle = "#0abab5"}
+    else if(state == "open"){ctx.fillStyle = "#007FFF"}
     else if(state == "current"){ctx.fillStyle = "purple"}
     else if(state == "path"){ctx.fillStyle = "green"}
     else if(state == "frozen"){ctx.fillStyle = "green"}
@@ -172,11 +172,14 @@ init()
 function clearPath(){
     for(var c=0; c<tileColumnCount; c++){
         for(var r=0; r<tileRowCount; r++){
-            if( tiles[c][r].state !="wall" &&  tiles[c][r].state != "start" &&  tiles[c][r].state != "end"){
+            if( tiles[c][r].state !="wall" ){
                 tiles[c][r].state = "empty"  
             }
         }
     }
+    tiles[start[0]][start[1]].state = "start"
+    tiles[end[0]][end[1]].state = "end"
+
 }
 
 

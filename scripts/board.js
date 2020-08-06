@@ -169,31 +169,31 @@ init()
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+function clearPath(){
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            if( tiles[c][r].state !="wall" &&  tiles[c][r].state != "start" &&  tiles[c][r].state != "end"){
+                tiles[c][r].state = "empty"  
+            }
+        }
+    }
+}
+
+
 function resetMaze(){
     isRunning = true
     solved = false
     openSet = [tiles[start[0]][start[1]] ]   // only for Astar 
     closedSet = [] // only for Astar
     for(var c=0; c<tileColumnCount; c++){
-        tiles[c] = []
         for(var r=0; r<tileRowCount; r++){
-            tiles[c][r] = {x: c*(tileW+3)  , y: r*(tileH+3), state: "empty", column: c, row:r}  
+            if(tiles[c][r].state != "start" && tiles[c][r].state != "end"){
+                tiles[c][r].state = "empty"
+            }
         }
     }
-    for(var c=0; c<tileColumnCount; c++){
-        for(var r=0; r<tileRowCount; r++){
-            var neighbours = []
-    
-            if(c>0){neighbours.push(tiles[c-1][ r])}
-            if(r>0){neighbours.push(tiles[c][ r-1])}
-            if(c < tileColumnCount -1){neighbours.push(tiles[c+1][ r])}
-            if(r < tileRowCount -1){neighbours.push(tiles[c][ r+1])}
-    
-            tiles[c][r].neighbours = neighbours
-        }
-    }
-    tiles[0][0].state = "start";
-    tiles[tileColumnCount-1][tileRowCount-1].state = "end";
+    tiles[start[0]][start[1]].state = "start"
+    tiles[end[0]][end[1]].state = "end"   
 }
 
 function randomMaze(){

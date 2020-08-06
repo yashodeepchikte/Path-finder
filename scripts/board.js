@@ -234,7 +234,7 @@ function handelMouseMoveStart(e){
                     start[1] = r
                     openSet = [tiles[start[0]][start[1]] ]  // only for Astar
                     tiles[c][r].state =  "start" 
-                    console.log("we are running")
+                    console.log("changing the start position")
                 }
             }   
         }

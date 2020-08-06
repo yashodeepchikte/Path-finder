@@ -10,10 +10,11 @@ function removeElmentFromArray (arr, element){
 //  helper Hurestics Function
 function hurestics(a, b){
 	//  Euclidean distance
-	var dist1 = Math.pow(  (Math.pow( (a.column-b.column) , 2) + Math.pow(a.row-b.row, 2) )  ,  0.5)
+	var dist1 = Math.pow(  (Math.pow( (a.column-b.column) , 2) + Math.pow(a.row-b.row, 2) )  ,  1)
 	//  dist if we can not go along the diagonals
 	// var dist2 = Math.abs(a.x-b.x) + Math.abs(a.y-b.y) 
-	return dist1
+	console.log("hurestic Distance = ", dist1)
+	return dist1*dist1
 }
 
 
@@ -66,7 +67,7 @@ function Astar(){
 			minIndex = i
 		}
 	}
-
+	
 	currentNode = openSet[minIndex]
 
 	if(currentNode.column == tiles[end[0]][end[1]].column && currentNode.row == tiles[end[0]][end[1]].row){

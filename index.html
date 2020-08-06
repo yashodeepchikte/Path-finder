@@ -7,11 +7,17 @@
 </head>
 <body>
 	<canvas id="canvas" width="1200" height="1200"></canvas>
+	<video></video>
 	<br />
 	<button id="reset" onclick="resetMaze()">Reset Maze</button>
 	<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
+	<br/>
+	<br/>
 	<button onclick="Astar()">Run A*</button>
+	<button onclick="dijkstras()">Run Dikjstra</button>
 	<!-- <button onclick="PrimsMazeGeneration()">Generate maze using Prims Algorithm</button> -->
+	<br/>
+	<br />
 	<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
 	<button onclick="recursiveBacktracker()">Run Recursive backtracker maze generation</button>
 
@@ -28,5 +34,6 @@
 	<script src="scripts/prims_maze_generation.js"></script>
 	<script src="scripts/recursive_backtracker.js"></script>
 	<script src="scripts/depthFirstSearch_MazeGenerator.js"></script>
+	<script src="scripts/Dijkstra.js"></script>
 </body>
 </html>

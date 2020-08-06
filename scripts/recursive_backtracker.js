@@ -1,183 +1,95 @@
-function invert() {
-    console.log("invert was called")
 
-    for(let c=0; c<tileColumnCount; c++){
-        for(let r=0; r<tileRowCount; r++){
-            if(tiles[c][r].state == "wall"){
-                tiles[c][r].state = "empty"
-            }
-            else if(tiles[c][r].state =="empty"){
-                tiles[c][r].state = "wall"
-            }
-        }
-    }
+function get_neighbours(c,r){
+
+	let neighbours = []
+	if(tiles[c+2]){
+		if(!tiles[c+2][r].visited ){
+			neighbours.push(tiles[c+2][r])
+		}
+	}	
+	if(tiles[c-2]){
+		if(!tiles[c-2][r].visited){
+			neighbours.push(tiles[c-2][r])
+		}
+	}
+	if(tiles[c][r+2]){
+		if(!tiles[c][r+2].visited){
+			neighbours.push(tiles[c][r+2])
+		}
+	}
+	if(tiles[c][r-2]){
+		if(!tiles[c][r-2].visited){
+			neighbours.push(tiles[c][r-2])
+		}
+	}
+	return neighbours
 }
 
-function cleanup(){
-    start = [0, 0]
-    end = [tileColumnCount-1, tileRowCount-1]
-    tiles[0][0].state = "start"
-    for(let c = 1; c < tiles.length; c++){
-        tiles[c][0].state = "empty"
-    }
-    for(let c = 1; c < tiles.length; c++){
-        tiles[c][2].state = "empty"
-    }
-    for(let c = 1; c<tiles.length/2; c++){
-        tiles[c][Math.floor(tileRowCount/2)].state = "empty"
-    }
-    for(let c = 1; c<tiles.length/2; c++){
-        tiles[tiles.length-c-1][Math.ceil(tileRowCount/2)+1].state = "empty"
-    }
-    
-    tiles[0][1].state = "empty"
-    tiles[1][0].state = "empty"
 
-    tiles[1][1].state = "empty"
-    
-    tiles[0][2].state = "empty"
-    tiles[2][0].state = "empty"
-    tiles[2][2].state = "empty"
 
-    // tiles[3][3].state = "empty"
-    // tiles[3][0].state = "empty"
-    // tiles[0][3].state = "empty"
-
-    // tiles[][3].state = "empty"
-    // tiles[3][0].state = "empty"
-    // tiles[0][3].state = "empty"
-
-    tiles[tileColumnCount-1][tileRowCount-1].state = "end"
-    tiles[tileColumnCount-2][tileRowCount-1].state = "empty"
-    tiles[tileColumnCount-1][tileRowCount-2].state = "empty"
-    tiles[tileColumnCount-2][tileRowCount-2].state = "empty"
-    tiles[tileColumnCount-1][tileRowCount-3].state = "empty"
-    tiles[tileColumnCount-3][tileRowCount-1].state = "empty"
-
-}
 function recursiveBacktracker(){
 
-    createBlackMaze()
+	
+	let current = tiles[0][0]
+	for (let  c = 0; c<tileColumnCount; c++){
+		for(let r = 0; r<tileRowCount; r++){
+			tiles[c][r].state = "wall"
+			tiles[c][r].visited = false	
+		}
+	}
+	const recursiveFunction = (current) => {
+		
+		tiles[current.column][current.row].visited = true
+		tiles[current.column][current.row].state  = "empty"
 
-    openSet2 = [tiles[0][0]]
-    const abc = (current) => {
-        console.log("openset 2 = ", openSet2)
-        if(openSet2.length == 0){
-            console.log("openset is empty")
-            // invert()
-            cleanup()
-            return
-        }
-        if(openSet2.length > tileColumnCount*tileRowCount){
-            return
-        }
-        let currentNeighbours = []
-        if(current.row + 2 < tileRowCount  && tiles[current.column][current.row+2]){
-            if(tiles[current.column][current.row+2].state != "empty"){
-                // tiles[current.column+1][current.row].state = "empty"
-                // tiles[current.column+2][current.row].state = "empty"
-                currentNeighbours.push(tiles[current.column][current.row+2])
-                // tiles[current.column][current.row+2].state = "open"
-            }
-            else{
-                //  do nothing
-            }
-        }
-        if(current.row - 2 > 0 && tiles[current.column][current.row-2]){
-            if(tiles[current.column][current.row-2].state != "empty"){
-                // tiles[current.column+1][current.row].state = "empty"
-                // tiles[current.column+2][current.row].state = "empty"
-                currentNeighbours.push(tiles[current.column][current.row-2])
-                // tiles[current.column][current.row-2].state = "open"
-            }
-            else{
-                //  do nothing
-            }
-        }
-        if(current.column + 2 < tileColumnCount  && tiles[current.column + 2][current.row]){
-            if(tiles[current.column + 2][current.row].state != "empty"){
-                // tiles[current.column+1][current.row].state = "empty"
-                // tiles[current.column+2][current.row].state = "empty"
-                currentNeighbours.push(tiles[current.column+2][current.row])
-                // tiles[current.column+2][current.row].state = "open"
-            }
-            else{
-                //  do nothing
-            }
-        }  
-        if(current.column - 2 > 0  && tiles[current.column - 2][current.row]){
-            if(tiles[current.column - 2][current.row].state != "empty"){
-                // tiles[current.column+1][current.row].state = "empty"
-                // tiles[current.column+2][current.row].state = "empty"
-                currentNeighbours.push(tiles[current.column-2][current.row])
-                // tiles[current.column-2][current.row].state = "open"
-            }
-            else{
-                //  do nothing
-            }
-        }
-        if(currentNeighbours.length !=0){
-            let randINdex = Math.floor(Math.random()*currentNeighbours.length)
-            for(let i = 0; i<currentNeighbours.length; i++){
-                if(i!=randINdex){
-                    openSet2.push(currentNeighbours[i])
-                }
-            }
+		let neighbours = get_neighbours(current.column, current.row)
+		
+		
 
-            next = currentNeighbours[randINdex]
-            
-            if(next.row - current.row < 0 && next.column == current.column){
-                //  merging with top
-                current.state = "empty"
-                next.state = "empty"
-                if(tiles[current.column][current.row-1]){
-                    tiles[current.column][current.row-1].state = "empty"
-                }
-                if(tiles[current.column][current.row -2]){
-                    tiles[current.column][current.row -2].state = "empty"
-                }
-            }
-            if(next.row == current.row && next.coumn - current.column > 0){
-                // moving right
-                if( tiles[current.column+1]){
-                    tiles[current.column+1][current.row].state = "empty"
-                }
-                if(tiles[current.column+2]){
-                    tiles[current.column+2][current.row].state = "empty"
-                }
-            }
-            if(next.row - current.row > 0 && next.column == current.column){
-                // moving down
-                if(tiles[current.column][current.row+1]){
-                    tiles[current.column][current.row+1].state = "empty"
-                }
-                if(tiles[current.column][current.row+2]){
-                    tiles[current.column][current.row+2].state = "empty"
-                }
-            }
-            if(next.row == current.row && next.column - current.column < 0){
-                // moving left
-                if(tiles[current.column-1]){
-                    tiles[current.column-1][current.row].state = "empty"
-                } 
-                if(tiles[current.column-2]){
-                    tiles[current.column-2][current.row].state = "empty"
-                }
-            }
+		if(neighbours.length == 0){
+			tiles[current.column][current.row].visited = true
 
+			console.log("tiles[current.column][current.row].previous = ", tiles[current.column][current.row].previous)
+			if(tiles[current.column][current.row].previous){
 
+				next = tiles[current.column][current.row].previous
+				tiles[0][0].state = "start"
+				tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+				setTimeout(()=>recursiveFunction(next), 10)
+			}else{
+				tiles[0][0].state = "start"
+				tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+				return
+			}
+		}else{
 
+			for(let i = 0; i<neighbours.length; i++){
+				tiles[neighbours[i].column][neighbours[i].row].previous = tiles[current.column][current.row]
+				// tiles[neighbours[i].column][neighbours[i].row].state = "neighbour"
+			}
 
+			tiles[current.column][current.row].visited = true
 
-            setTimeout(() => abc(next), 50)
-        }else{
-            current = openSet2.pop()
-            // current.state = "current"
-            setTimeout(()=>abc(current), 50)
-        }
-    }
-    abc(openSet2[0])
-    // invert()
-   
+			rand_index = Math.floor(Math.random()*neighbours.length)
+			console.log("Rand_index = ", rand_index)
+			next = neighbours[rand_index]
+			tiles[next.column][next.row].state = "empty"
+			// tiles[neighbours[rand_index].column][tiles[neighbours[rand_index].row]].state = "empty"
+			col = current.column + neighbours[rand_index].column
+			col = Math.floor(col/2)
+			row = current.row + neighbours[rand_index].row
+			row = Math.floor(row / 2)
+	
+			tiles[col][row].state = "empty"
+			current = tiles[next.column][next.row]
+			tiles[0][0].state = "start"
+			tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+			setTimeout(()=>recursiveFunction(current), delay*5)
+		}
+	}
+	recursiveFunction(current)
+	
+	tiles[0][0].state = "start"
+	tiles[tileColumnCount-1][tileRowCount-1].state = "end"
 
 }

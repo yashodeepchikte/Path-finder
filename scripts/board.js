@@ -130,6 +130,7 @@ function rect(x, y, w, h, state){
     else if(state == "current"){ctx.fillStyle = "purple"}
     else if(state == "path"){ctx.fillStyle = "green"}
     else if(state == "frozen"){ctx.fillStyle = "green"}
+    else if(state == "neighbour"){ctx.fillStyle = "blue"}
 
     ctx.beginPath();
     ctx.rect(x, y, w, h)

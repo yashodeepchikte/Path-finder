@@ -30,7 +30,7 @@ function get_neighbours(c,r){
 function recursiveBacktracker(){
 
 	
-	let current = tiles[0][0]
+	let current = tiles[start[0]][start[1]]
 	for (let  c = 0; c<tileColumnCount; c++){
 		for(let r = 0; r<tileRowCount; r++){
 			tiles[c][r].state = "wall"
@@ -53,12 +53,12 @@ function recursiveBacktracker(){
 			if(tiles[current.column][current.row].previous){
 
 				next = tiles[current.column][current.row].previous
-				tiles[0][0].state = "start"
-				tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+				tiles[start[0]][start[1]].state = "start"
+				tiles[end[0]][end[1]].state = "end"
 				setTimeout(()=>recursiveFunction(next), 10)
 			}else{
-				tiles[0][0].state = "start"
-				tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+				tiles[start[0]][start[1]].state = "start"
+				tiles[end[0]][end[1]].state = "end"
 				return
 			}
 		}else{
@@ -82,14 +82,14 @@ function recursiveBacktracker(){
 	
 			tiles[col][row].state = "empty"
 			current = tiles[next.column][next.row]
-			tiles[0][0].state = "start"
-			tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+			tiles[start[0]][start[1]].state = "start"
+				tiles[end[0]][end[1]].state = "end"
 			setTimeout(()=>recursiveFunction(current), delay*5)
 		}
 	}
 	recursiveFunction(current)
 	
-	tiles[0][0].state = "start"
-	tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+	tiles[start[0]][start[1]].state = "start"
+	tiles[end[0]][end[1]].state = "end"
 
 }

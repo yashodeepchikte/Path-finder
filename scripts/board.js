@@ -199,8 +199,12 @@ function createVerticalmaze() {
             }
         }
     }
-    tiles[start[0]][start[1]].state = "start"
-    tiles[end[0]][end[1]].state = "end"
+    tiles[0][0].state = "start"
+    tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+    end[0] = tileColumnCount-1
+    end[1] = tileRowCount-1
+    start[0] = 0
+    start[1] = 0
 }
 
 function createHorizontalMaze() {
@@ -226,8 +230,12 @@ function createHorizontalMaze() {
             }
         }
     }
-    tiles[start[0]][start[1]].state = "start"
-    tiles[end[0]][end[1]].state = "end"
+    tiles[0][0].state = "start"
+    tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+    end[0] = tileColumnCount-1
+    end[1] = tileRowCount-1
+    start[0] = 0
+    start[1] = 0
 }
 
 function createDiagonalMaze(){
@@ -257,8 +265,13 @@ function createDiagonalMaze(){
             }
         }
     }
-    tiles[start[0]][start[1]].state = "start"
-    tiles[end[0]][end[1]].state = "end"
+    tiles[0][0].state = "start"
+    tiles[tileColumnCount-1][tileRowCount-1].state = "end"
+    end[0] = tileColumnCount-1
+    end[1] = tileRowCount-1
+    start[0] = 0
+    start[1] = 0
+
 }
 
 function createSpiralMaze(){

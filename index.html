@@ -8,21 +8,25 @@
 </head>
 <body>
 	<canvas id="canvas" width="1200" height="1200"></canvas>
-	<br />
-	<br />
-	<button id="reset" onclick="resetMaze()">Reset Maze</button>
-	<button id="reset" onclick="clearPath()">Clear Path</button>
-	<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
 	<br/>
 	<br/>
 	<button onclick="Astar()">Run A*</button>
 	<button onclick="dijkstras()">Run Dikjstra</button>
-	<!-- <button onclick="PrimsMazeGeneration()">Generate maze using Prims Algorithm</button> -->
 	<br/>
 	<br />
-	<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
 	<button onclick="recursiveBacktracker()">Run Recursive backtracker maze generation</button>
-
+	<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
+	<br />
+	<br />	
+	<button onclick="createVerticalmaze()">Create a vertical Maze</button>
+	<button onclick="createHorizontalMaze()">Create a Horizontal Maze</button>
+	<button onclick="createDiagonalMaze()">Create a Diagonal Maze</button>
+	<button onclick="createSpiralMaze()">Create a Spiral Maze</button>
+	<br/>
+	<br />
+	<button id="reset" onclick="resetMaze()">Reset Maze</button>
+	<button id="reset" onclick="clearPath()">Clear Path</button>
+	<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
 	<button onclick="createBlackMaze()">Cover entire maze</button>
 	<br />
 	<br/>
@@ -32,7 +36,7 @@
 				Set delay in milli seconds:
 			</td>
 			<td>
-				<input type="number" onchange="handelSpeedChange(value)" value = delay placeholder="delay = 10ms default" />
+				<input type="number" onchange="handelSpeedChange(value)"  placeholder="delay = 10ms default" />
 			</td>
 		</tr>
 		<tr>

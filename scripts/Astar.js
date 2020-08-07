@@ -14,7 +14,7 @@ function hurestics(a, b){
 	//  dist if we can not go along the diagonals
 	// var dist2 = Math.abs(a.x-b.x) + Math.abs(a.y-b.y) 
 	// console.log("hurestic Distance = ", dist1)
-	return dist1*dist1
+	return dist1
 }
 
 

@@ -130,7 +130,14 @@ function rect(x, y, w, h, state){
     else if(state == "current"){ctx.fillStyle = "purple"}
     else if(state == "path"){ctx.fillStyle = "#ffd300"}
     else if(state == "frozen"){ctx.fillStyle = "green"}
+    
+    else if(state == "left"){ctx.fillStyle = "blue"}
+    else if(state == "down"){ctx.fillStyle = "orange"}
+    else if(state == "right"){ctx.fillStyle = "green"}
+    else if(state == "up"){ctx.fillStyle = "red"}
+    
     else if(state == "neighbour"){ctx.fillStyle = "blue"}
+
 
     ctx.beginPath();
     ctx.rect(x, y, w, h)
@@ -169,6 +176,150 @@ function init(){
 init()
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+function createVerticalmaze() {
+
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            tiles[c][r].state = "empty"
+        }
+    }
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            if(c%3==1){
+                tiles[c][r].state = "wall"
+                if(r == 0  && c%3 == 1){
+                    tiles[c][r].state = "empty"
+                }
+
+                if(r == tileRowCount-1 && c%6 == 1){
+                    tiles[c][0].state = "wall"
+                    tiles[c][r].state = "empty"
+                }
+                
+            }
+        }
+    }
+    tiles[start[0]][start[1]].state = "start"
+    tiles[end[0]][end[1]].state = "end"
+}
+
+function createHorizontalMaze() {
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            tiles[c][r].state = "empty"
+        }
+    }
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            if(r%3==1){
+                tiles[c][r].state = "wall"
+                tiles[tileColumnCount-1][r].state = "empty"
+                tiles[0][r].state = "empty"
+
+                if( r%3 == 1 && r%6!=1){
+                    tiles[c][r].state = "wall"
+                }
+                if(r%6==1){
+                    tiles[0][r].state = "wall"
+                }
+                
+            }
+        }
+    }
+    tiles[start[0]][start[1]].state = "start"
+    tiles[end[0]][end[1]].state = "end"
+}
+
+function createDiagonalMaze(){
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            tiles[c][r].state = "empty"
+        }
+    }
+    
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            if((r+c)%3 == 0){
+                tiles[c][r].state = "wall"
+            }
+            if(c%3 == 0 && c%6 != 0){
+                tiles[c][0].state = "empty"
+            }
+            if(r%6 == 0){
+                tiles[0][r].state = "empty"
+            }
+            if(c%6 == 0){
+                tiles[c][tileRowCount-1].state = "empty"
+            }
+            if(r%2 == 0){
+                console.log("print")
+                tiles[tileColumnCount - 1][r].state= "empty"
+            }
+        }
+    }
+    tiles[start[0]][start[1]].state = "start"
+    tiles[end[0]][end[1]].state = "end"
+}
+
+function createSpiralMaze(){
+
+    for(var c=0; c<tileColumnCount; c++){
+        for(var r=0; r<tileRowCount; r++){
+            tiles[c][r].state = "wall"
+        }
+    }
+
+    let upperBound  = 0
+    let lowerBound  = tileRowCount - 1
+    let leftBound = 0
+    let rightBound = tileColumnCount - 1
+
+    let right = 0
+    let down = 1
+    let left = 2
+    let up = 3
+    let direction = 0
+    while(upperBound <= lowerBound && leftBound <= rightBound){
+       console.log(" ----------------------------------------- ")
+        console.log("UpperBound = ", upperBound)
+        console.log("lowerBound = ", lowerBound)
+        console.log(" ")
+        console.log("leftBound = ", leftBound)
+        console.log("rightBound = ", rightBound)
+
+        if(direction == right){
+            for(let i = leftBound-2>=0 ? leftBound-2: 0 ; i <= rightBound; i++){
+                tiles[i][upperBound].state = "empty"
+            }
+            direction = down
+            upperBound += 2
+        }
+        else if(direction == down){
+            for(let i = upperBound-2 ; i <= lowerBound ; i++){
+                tiles[rightBound][i].state = "empty"
+            }
+            direction = left
+            rightBound -= 2
+        }
+        else if(direction == left){
+            for(let i = leftBound; i <= rightBound+2; i++){
+                tiles[i][lowerBound].state = "empty"
+            }
+            direction = up
+            lowerBound -= 2
+        }
+        else if(direction == up){
+            for(let i = upperBound; i <= lowerBound+2 ; i++){
+                tiles[leftBound][i].state = "empty"
+            }
+            direction = right
+            leftBound += 2
+        }
+    }
+    tiles[0][0].state = "start"
+    tiles[Math.floor(tileColumnCount/2)][Math.floor(tileRowCount/2)].state = "end"
+    end = [Math.floor(tileColumnCount/2), Math.floor(tileRowCount/2)] 
+}
 
 function clearPath(){
     for(var c=0; c<tileColumnCount; c++){

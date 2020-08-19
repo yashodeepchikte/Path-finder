@@ -1,0 +1,97 @@
+body{
+   font-family: Arial, Helvetica, sans-serif;
+  
+}
+.container{
+
+    text-align: center;
+    margin: auto
+
+}
+canvas{
+
+    background-color: #1e1f26;
+    border: 0.5px solid black;
+    border-left: 0.25px solid #1e1f26;
+    border-bottom: 0.25px solid #1e1f26
+
+}
+
+table{
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    border-spacing: 0px;
+}
+tr{
+    border: 1px solid black;
+}
+td{
+    border: 1px solid black;
+
+}
+.controls{
+    
+    text-align: left;
+    padding-left: 50px;
+    
+}
+.controls button{
+    margin-top: 10px;
+    margin-left: 10px;
+    border: none;
+    background: none;
+    height: 35px;
+    border: 1px solid #1e1f26;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.controls button:hover{
+
+
+    background: black;
+    color: white;
+}
+
+a{
+    margin-top: 10px;
+    margin-left: 10px;
+  
+    background: none;
+    
+    border: 1px solid #1e1f26;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.footer{
+    display: flex;
+    padding-left: 50px;
+    padding-right: 50px;
+    justify-content: space-between;
+    color: white;
+    background-color:#1e1f26;
+    padding: 20px;
+    border-radius: 5px;
+}
+.footer a{
+    border: 1px solid  white;
+    color:white; 
+    text-decoration: none;
+}
+
+input{
+    border: none;
+    background: none;
+}
+input:focus{
+    border: none;
+    border-radius: 0;
+    outline: none
+}
+
+controls .astar:hover{
+    background-color: greenyellow;
+}

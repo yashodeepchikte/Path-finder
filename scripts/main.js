@@ -1,6 +1,6 @@
 // this file will contain all the code related to the main app
 
-let delay = 10
+let delay = 5
 
 
 function sleep(miliseconds) {

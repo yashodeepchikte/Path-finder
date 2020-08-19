@@ -4,68 +4,88 @@
     <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" href="favicon.svg">
+	<link rel="stylesheet" href="styles.css">
     <title>Path Finder</title>
 </head>
-<body>
-	<canvas id="canvas" width="1200" height="1200"></canvas>
-	<br/>
-	<br/>
+<body> 
+	<div class="container">
+			<canvas id="canvas" width="1200" height="1200" ></canvas>
+		<div class="controls">
+			<a href="https://github.com/yashodeepchikte/Path-finder" style="color:black; text-decoration: none;">GitHub Page</a>
+			<button onclick="Astar()" class="astar">Run A*</button>
+			<button onclick="dijkstras()">Run Dikjstra</button>
 	
-	<button><a href="https://github.com/yashodeepchikte/Path-finder" style="color:black; text-decoration: none;">GitHub Page</a></button>
-	<button onclick="Astar()">Run A*</button>
-	<button onclick="dijkstras()">Run Dikjstra</button>
-	<br/>
-	<br />
-	<button onclick="recursiveBacktracker()">Run Recursive backtracker maze generation</button>
-	<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
-	<br />
-	<br />	
-	<button onclick="createVerticalmaze()">Create a vertical Maze</button>
-	<button onclick="createHorizontalMaze()">Create a Horizontal Maze</button>
-	<button onclick="createDiagonalMaze()">Create a Diagonal Maze</button>
-	<button onclick="createSpiralMaze()">Create a Spiral Maze</button>
-	<br/>
-	<br />
-	<button id="reset" onclick="resetMaze()">Reset Maze</button>
-	<button id="reset" onclick="clearPath()">Clear Path</button>
-	<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
-	<button onclick="createBlackMaze()">Cover entire maze</button>
-	<br />
-	<br/>
-	<table>
-		<tr>
-			<td>
-				Set delay in milli seconds:
-			</td>
-			<td>
-				<input type="number" onchange="handelSpeedChange(value)"  placeholder="delay = 10ms default" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				number of rows:  
-			</td>
-			<td>
-				<input type="number" onchange="handelRowsChange(value)"  placeholder="rows = 25 by default" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				number of columns:  
-			</td>
-			<td>
-				<input type="number" onchange="handelColumnssChange(value)"  placeholder="columns = 50 by default" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Prob. threshold for random maze:  
-			</td>
-			<td>
-				<input type="number" onchange="handelThresholdChange(value)"  placeholder="Threshold = 0.2 by default" />
-			</td>
-		</tr>
-	</table>
+			<br />
+			<button onclick="recursiveBacktracker()">Run Recursive backtracker maze generation</button>
+			<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
+		
+			<br />	
+			<button onclick="createVerticalmaze()">Create a vertical Maze</button>
+			<button onclick="createHorizontalMaze()">Create a Horizontal Maze</button>
+			<button onclick="createDiagonalMaze()">Create a Diagonal Maze</button>
+			<button onclick="createSpiralMaze()">Create a Spiral Maze</button>
+	
+			<br />
+			<button id="reset" onclick="resetMaze()">Reset Maze</button>
+			<button id="reset" onclick="clearPath()">Clear Path</button>
+			<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
+			<button onclick="createBlackMaze()">Cover entire maze</button>
+			<br />
+		</div>
+		
+
+		<table>
+			<tr>
+				<td>
+					Set delay in milli seconds:
+				</td>
+				<td>
+					<input type="number" onchange="handelSpeedChange(value)"  placeholder="delay = 5ms default" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					number of rows:  
+				</td>
+				<td>
+					<input type="number" onchange="handelRowsChange(value)"  placeholder="rows = 25 by default" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					number of columns:  
+				</td>
+				<td>
+					<input type="number" onchange="handelColumnssChange(value)"  placeholder="columns = 50 by default" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Prob. threshold for random maze:  
+				</td>
+				<td>
+					<input type="number" onchange="handelThresholdChange(value)"  placeholder="Threshold = 0.2 by default" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Cell seperation : 
+				</td>
+				<td>
+					<input type="number" onchange="handelCellSeperationChange(value)"  placeholder="Cell Seperation = 1px by default" />
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+
+	<div class="footer">
+		<div>Made by Yashodeep</div>
+		<div>
+			<a href="https://github.com/yashodeepchikte/Path-finder">GitHub Page</a>
+		</div>
+	</div>
+	
 	
 	<script src="scripts/main.js"></script>
 	<script src="scripts/board.js"></script>

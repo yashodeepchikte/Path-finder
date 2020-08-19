@@ -84,8 +84,10 @@ function Astar(){
 	
 		if(currentNode.column == tiles[end[0]][end[1]].column && currentNode.row == tiles[end[0]][end[1]].row){
 			solved = true
-			isRunning = false		
-			showPath()
+			isRunning = false	
+			clearPath()
+			setTimeout(showPath, delay)	
+			
 			openSet=[]
 	
 			return

@@ -153,7 +153,7 @@ function rect(x, y, w, h, state){
     else if(state =="visited"){ctx.fillStyle = "#4f5b66"}
     else if(state == "open"){ctx.fillStyle = "#3d1e6d"}
     else if(state == "current"){ctx.fillStyle = "purple"}
-    else if(state == "path"){ctx.fillStyle = "#84c1ff "}
+    else if(state == "path"){ctx.fillStyle = "#316aff "}
     else if(state == "frozen"){ctx.fillStyle = "green"}
     
     else if(state == "left"){ctx.fillStyle = "blue"}

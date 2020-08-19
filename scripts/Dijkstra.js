@@ -53,7 +53,8 @@ function dijkstras(){
         if(currentNode.column == tiles[end[0]][end[1]].column && currentNode.row == tiles[end[0]][end[1]].row ){
             solved = true
             _isRunning = false
-            showPath()
+            clearPath()
+			setTimeout(showPath, delay)	
             return
         }
         closedSet.push(currentNode)

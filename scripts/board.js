@@ -12,8 +12,10 @@ const HEIGHT = 800;
 let isRunning = false
 
 
-tileRowCount = 35
-tileColumnCount = 94
+tileRowCount =  window.innerWidth > 500 ? 35 : 25
+tileColumnCount = window.innerWidth > 500 ? 94 : 25
+console.log("width = ", window.innerWidth )
+console.log("tileRowCount = ", tileRowCount)
 
 cellSeperation = 1
 

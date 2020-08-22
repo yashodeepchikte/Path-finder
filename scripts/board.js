@@ -12,20 +12,20 @@ const HEIGHT = 800;
 let isRunning = false
 
 
-tileRowCount = 25
-tileColumnCount = 60
+tileRowCount = 35
+tileColumnCount = 94
 
 cellSeperation = 1
 
-tileW = 20;
-tileH = 20;
+tileW = 15;
+tileH = 15;
 
 
 let boundX = 0
 let boundY = 0
 
-let start = [0, 0]
-let end = [tileColumnCount-1, tileRowCount-1]
+let start = [1, 1]
+let end = [tileColumnCount-2, tileRowCount-2]
 var tiles = []
 
 
@@ -33,7 +33,7 @@ var tiles = []
 
 
 function handelRowsChange(rows){
-    rows = rows > 1 ? rows :  1
+    rows = rows > 2 ? rows :  2
     tiles = []
     tileRowCount = rows
     end = [tileColumnCount-1, rows-1]
@@ -65,7 +65,7 @@ function handelRowsChange(rows){
 }
 
 function handelColumnssChange(columns){
-    columns = columns > 0 ? columns : 1
+    columns = columns > 2 ? columns : 2
     tiles = []
     tileColumnCount = columns
     end = [columns-1, tileRowCount-1]
@@ -149,12 +149,13 @@ function rect(x, y, w, h, state){
     if(state == "start"){ctx.fillStyle = "#7bc043 "}
     else if(state == "end"){ctx.fillStyle = "red"}
     else if(state == "wall"){ctx.fillStyle = "#1e1f26"}
-    else if(state == "empty"){ctx.fillStyle = " #dddddd "}
+    else if(state == "empty"){ctx.fillStyle = "white "}
     else if(state =="visited"){ctx.fillStyle = "#4f5b66"}
     else if(state == "open"){ctx.fillStyle = "#3d1e6d"}
     else if(state == "current"){ctx.fillStyle = "purple"}
     else if(state == "path"){ctx.fillStyle = "#316aff "}
     else if(state == "frozen"){ctx.fillStyle = "green"}
+    else if(state =="seen"){ctx.fillStyle="yellow"}
     
     else if(state == "left"){ctx.fillStyle = "blue"}
     else if(state == "down"){ctx.fillStyle = "orange"}

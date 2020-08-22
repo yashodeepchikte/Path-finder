@@ -1,12 +1,5 @@
 
-//  helper function to remove elements from an array
-function removeElmentFromArray (arr, element){
-	for (var i = arr.length -1; i >=0; i--){
-		if (arr[i] == element) {
-			arr.splice(i, 1);
-			}
-	}
-}
+
 //  helper Hurestics Function
 function hurestics(a, b){
 	//  Euclidean distance
@@ -33,6 +26,7 @@ function showPath(){
 		setTimeout(abc, 10)		
 	}
 	abc()
+	
 }
 isRunning = true
 

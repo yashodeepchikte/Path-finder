@@ -10,8 +10,18 @@ function sleep(miliseconds) {
     }
  }
 
+ //  helper function to remove elements from an array
+function removeElmentFromArray (arr, element){
+	for (var i = arr.length -1; i >=0; i--){
+		if (arr[i] == element) {
+			arr.splice(i, 1);
+			}
+	}
+}
+
  function handelSpeedChange(value){
-     console.log(value)
+     console.log("delay = ",  value, " milliSecond")
+     value = Number(value)
      delay = value
  }
 

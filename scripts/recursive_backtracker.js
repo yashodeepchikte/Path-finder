@@ -84,7 +84,7 @@ function recursiveBacktracker(){
 			current = tiles[next.column][next.row]
 			tiles[start[0]][start[1]].state = "start"
 				tiles[end[0]][end[1]].state = "end"
-			setTimeout(()=>recursiveFunction(current), delay*5)
+			setTimeout(()=>recursiveFunction(current), delay/5)
 		}
 	}
 	recursiveFunction(current)

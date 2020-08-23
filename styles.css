@@ -11,9 +11,9 @@ body{
 canvas{
 
     background-color: #1e1f26;
-    border: 0.5px solid black;
-    border-left: 0.25px solid #1e1f26;
-    border-bottom: 0.25px solid #1e1f26
+    border: 0.75px solid black;
+    /* border-left: 0.25px solid #1e1f26;
+    border-bottom: 0.25px solid #1e1f26 */
 
 }
 

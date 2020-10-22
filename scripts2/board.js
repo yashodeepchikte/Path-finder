@@ -181,51 +181,60 @@ const intiailize = () => {
 
 const removeFromAllLists = (r, c) => {
 	let temp = getString(r, c)
-	wallList = wallList.filter(node => node != temp)
-	LargeObstacleList = LargeObstacleList.filter(node => node != temp)
-	smallObstacleList = smallObstacleList.filter(node => node != temp)
+	let currentClass = getClass(r, c)
+	if (currentClass == "Wall") {
+		wallList = wallList.filter(node => node != temp)
+	}
+	if (currentClass == "Small-Obstacle") {
+		smallObstacleList = smallObstacleList.filter(node => node != temp)
+	}
+	if (currentClass == "Large-Obstacle") {
+		LargeObstacleList = LargeObstacleList.filter(node => node != temp)
+	}
 }
 
-const handelClick = (r, c) => {
-	console.log("handel click was called on --> r = ", r, " c = ", c)
-	selector = document.getElementById("selector").value ? document.getElementById("selector").value : "Wall"
+const handelClick = (r, c, selector) => {
+	// console.log("handel click was called on --> r = ", r, " c = ", c)
+	if (!selector) {
+		selector = document.getElementById("selector").value ? document.getElementById("selector").value : "Wall"
+	}
 	removeFromAllLists(r, c)
 	let node = getString(r, c)
 	if (selector === "Wall") {
 		if (!(start.row == r && start.col == c) && !(end.row == r && end.col == c)) {
-			console.log("selector = wall")
+			// console.log("selector = wall")
 			wallList.push(node)
 			updateNeighboursWeight(r, c, wallWeight)
 		}
 	} else if (selector === "Start") {
-		console.log("selector = start")
+		// console.log("selector = start")
 		start.row = r
 		start.col = c
 		updateNeighboursWeight(r, c, normalWeight)
 	} else if (selector === "End") {
-		console.log("selector = end")
+		// console.log("selector = end")
 		end.row = r
 		end.col = c
 		updateNeighboursWeight(r, c, normalWeight)
 
 	} else if (selector === "Small-Obstacle") {
-		if ((start.row !== r && start.col != c) && (end.row != r && end.col != c)) {
+		if (!(start.row == r && start.col == c) && !(end.row == r && end.col == c)) {
 
-			console.log("selector = small obstaclle")
+			// console.log("selector = small obstaclle")
 			smallObstacleList.push(node)
 			updateNeighboursWeight(r, c, smallObstaclWeigth)
 		}
 	} else if (selector === "Large-Obstacle") {
-		if ((start.row !== r && start.col != c) && (end.row != r && end.col != c)) {
+		if (!(start.row == r && start.col == c) && !(end.row == r && end.col == c)) {
 
-			console.log("selector = large obstaclle")
+			// console.log("selector = large obstaclle")
 			LargeObstacleList.push(node)
 			updateNeighboursWeight(r, c, LargeObstacleWeigth)
 		}
 	} else {
-		if ((start.row !== r && start.col != c) && (end.row != r && end.col != c)) {
+		if (!(start.row == r && start.col == c) && !(end.row == r && end.col == c)) {
 
-			console.log("the selector must have been the empty cell	")
+			// console.log("the selector must have been the empty cell	")
 			updateNeighboursWeight(r, c, normalWeight)
 		}
 	}
@@ -235,7 +244,7 @@ const handelClick = (r, c) => {
 
 
 const drawBoard = () => {
-	console.log("Draw board was called")
+	// console.log("Draw board was called")
 	try {
 		// let board = document.createElement("div")
 		board = document.getElementById("board")

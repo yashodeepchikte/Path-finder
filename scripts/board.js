@@ -416,9 +416,6 @@ function randomMaze() {
     }
 }
 
-
-
-
 function handelMouseMoveStart(e) {
     let x = e.pageX - canvas.offsetLeft;
     let y = e.pageY - canvas.offsetTop;

@@ -90,10 +90,24 @@
 
 	<form class="container">
 		<div class="form-group">
-			<button onclick="generateRandomMaze()" class="btn btn-light mt-2">Random Maze</button>.
+			<button onclick="generateRandomMaze(event)" class="btn btn-light mt-2">Random Maze</button>.
 		</div>
 		<div class="form-group">
-			<button onclick="generateSpiralMaze()" class="btn btn-light mt-2">Spiral Maze</button>.
+			<button onclick="generateSpiralMaze(event)" class="btn btn-light mt-2">Spiral Maze</button>.
+		</div>
+		<div class="form-group">
+			<button onclick="resetMaze(event)" class="btn btn-light mt-2">Reset Maze</button>.
+		</div>
+	</form>
+	<form class="container">
+		<div class="form-group">
+			<button onclick="djkstra(event)" class="btn btn-light mt-2">djkstra</button>.
+		</div>
+		<div class="form-group">
+			<button onclick="generateSpiralMaze(event)" class="btn btn-light mt-2">Spiral Maze</button>.
+		</div>
+		<div class="form-group">
+			<button onclick="resetMaze(event)" class="btn btn-light mt-2">Reset Maze</button>.
 		</div>
 	</form>
 
@@ -110,6 +124,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="./scripts2/board.js"></script>
 	<script src="./scripts2/maze.js"></script>
+	<script src="./scripts2/Djkstra.js"></script>
 	
 	</body>
 </html>

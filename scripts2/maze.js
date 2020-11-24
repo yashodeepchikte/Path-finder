@@ -1,7 +1,7 @@
 const randomProbablity = 0.25
 
-const resetMaze = () => {
-    var chance
+const resetMaze = (event) => {
+    event.preventDefault()
     numRows = document.getElementById("numRows").value ? document.getElementById("numRows").value : default_rows
     numRows = numRows > 3 ? numRows : 3
     numCols = document.getElementById("numCols").value ? document.getElementById("numCols").value : default_cols
@@ -13,15 +13,35 @@ const resetMaze = () => {
         for (let c = 0; c < numCols; c++) {
             if (!(start.row == r && start.col == c) && !(end.row == r && end.col == c)) {
                 let temp = document.getElementById(getString(r, c))
+                // console.log(temp, " set to cell")
                 temp.setAttribute("class", "cell")
             }
         }
     }
+    // SET a start and end
+    start = { row: Math.round(numRows / 2) - 1, col: 2 }
+    end = { row: Math.round(numRows / 2) - 1, col: numCols - 3 }
+
+    temp = document.getElementById(getString(start.row, start.col))
+    temp.setAttribute("class", "Start")
+
+    temp = document.getElementById(getString(end.row, end.col))
+    temp.setAttribute("class", "End")
+
+
+
+    wallList = []
+    smallObstacleList = []
+    LargeObstacleList = []
+
+
+    drawBoard()
 }
 
-const generateRandomMaze = () => {
-
-    resetMaze()
+const generateRandomMaze = (event) => {
+    event.preventDefault()
+    resetMaze(event)
+    console.log("Generate random maze was called")
     for (let r = 0; r < numRows; r++) {
         for (let c = 0; c < numCols; c++) {
             if (!(start.row == r && start.col == c) && !(end.row == r && end.col == c)) {
@@ -40,9 +60,9 @@ const generateRandomMaze = () => {
 }
 
 
-const generateSpiralMaze = () => {
-    resetMaze()
-
+const generateSpiralMaze = (event) => {
+    resetMaze(event)
+    event.preventDefault()
     let upperBound = 1
     let lowerBound = numRows - 1
     let leftBound = 0
@@ -111,9 +131,9 @@ const generateSpiralMaze = () => {
 
     end.row = Math.round(numRows / 2)
     end.col = Math.round(numCols / 2)
-
     temp = document.getElementById(getString(end.row, end.col))
     temp.setAttribute("class", "End")
+
     wallList = wallList.filter(node => node != getString(start.row, start.col))
     wallList = wallList.filter(node => node != getString(end.row, end.col))
     drawBoard()

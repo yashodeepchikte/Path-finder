@@ -47,6 +47,7 @@ const getClass = (r, c) => {
 	}
 }
 const handelInputsChange = (e) => {
+	e.preventDefault()
 	console.log("handel inputs change was called")
 	try {
 		algorithm = document.getElementById("algorithm").value ? document.getElementById("algorithm").value : "A* algorithm"
@@ -98,12 +99,10 @@ const changeWeight = (r1, c1, r2, c2, weight = 1) => {
 const updateNeighboursWeight = (r, c, weight = 1) => {
 	let temp
 	let node = getString(r, c)
-	let temp_weight
 	if (c > 0) {
 		temp = getString(r, c - 1)
 		// temp_weigth = max([weights[temp][node], weights[node][temp], weight])
 		temp_weigth = Math.max(weights[temp][node], weights[node][temp], weight)
-
 		changeWeight(r, c, r, c - 1, temp_weigth)
 	}
 	if (r > 0) {
@@ -241,8 +240,6 @@ const handelClick = (r, c, selector) => {
 	drawBoard()
 }
 
-
-
 const drawBoard = () => {
 	// console.log("Draw board was called")
 	try {
@@ -266,14 +263,10 @@ const drawBoard = () => {
 			board.appendChild(row)
 		}
 		// board.innerHTML = temp
-
 	} catch (error) {
 		console.log("there is some error in drawing the board --> \n", error.message)
 	}
 }
-
-
-
 
 intiailize()
 drawBoard()

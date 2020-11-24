@@ -1,9 +1,3 @@
-// class Node {
-//     constructor(val, priority) {
-//         this.val = val;
-//         this.priority = priority;
-//     }
-// }
 class BinaryHeapPQ {
     constructor() {
         this.values = [];

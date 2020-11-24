@@ -19,6 +19,7 @@ let board = document.getElementById("board")
 let wallList = []
 let smallObstacleList = []
 let LargeObstacleList = []
+let visitedList = []
 let start = { row: Math.round(numRows / 2) - 1, col: 2 }
 let end = { row: Math.round(numRows / 2) - 1, col: numCols - 3 }
 
@@ -30,6 +31,11 @@ const getString = (r, c) => {
 	return `row-${r}-col-${c}`
 }
 
+const getIndex = (s) => {
+	let a = s.split("-")
+	return [Number(a[1]), Number(a[3])]
+}
+
 const getClass = (r, c) => {
 	let temp = getString(r, c)
 	if (wallList.includes(temp)) {
@@ -38,7 +44,10 @@ const getClass = (r, c) => {
 		return "Small-Obstacle"
 	} else if (LargeObstacleList.includes(temp)) {
 		return "Large-Obstacle"
-	} else if (start.row == r && start.col == c) {
+	} else if (visitedList.includes(temp)) {
+		return "visited"
+	}
+	else if (start.row == r && start.col == c) {
 		return "Start"
 	} else if (end.row == r && end.col == c) {
 		return "End"
@@ -47,7 +56,7 @@ const getClass = (r, c) => {
 	}
 }
 const handelInputsChange = (e) => {
-	e.preventDefault()
+	// e.preventDefault()
 	console.log("handel inputs change was called")
 	try {
 		algorithm = document.getElementById("algorithm").value ? document.getElementById("algorithm").value : "A* algorithm"
@@ -76,6 +85,25 @@ const handelInputsChange = (e) => {
 		console.log("there was an error in canging the input parameters")
 	}
 }
+
+const getNeighbours = (r, c) => {
+	temp = []
+	if (c > 0 && !wallList.includes(getString(r, c - 1)) && !visitedList.includes(getString(r, c))) {
+
+		temp.push(getString(r, c - 1))
+	}
+	if (r > 0 && !wallList.includes(getString(r - 1, c)) && !visitedList.includes(getString(r, c))) {
+		temp.push(getString(r - 1, c))
+	}
+	if (r < numRows && !wallList.includes(getString(r + 1, c)) && !visitedList.includes(getString(r, c))) {
+		temp.push(getString(r + 1, c))
+	}
+	if (c < numCols && !wallList.includes(getString(r, c + 1)) && !visitedList.includes(getString(r, c))) {
+		temp.push(getString(r, c + 1))
+	}
+	return temp
+}
+
 
 const changeWeight = (r1, c1, r2, c2, weight = 1) => {
 	let node = getString(r1, c1)

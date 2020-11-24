@@ -1,12 +1,3 @@
-class Node {
-    constructor(val, priority) {
-        this.val = val;
-        this.priority = priority;
-    }
-}
-
-
-
 class ArrayPriorityQueue {
     constructor() {
         this.values = [];
@@ -35,18 +26,25 @@ class ArrayPriorityQueue {
     }
 
     changePriority(key, newPriority) {
+        // console.log("callsing 2")
+
         let element = this.values.filter(a => a.val == key)
         if (element.length == 0 || element.length > 1) {
             console.log("More than one or 0 elements witht the given key")
             return false
         } else {
+            // console.log("callsing 3")
+
             for (let i = 0; i < this.values.length; i++) {
+
                 if (this.values[i].val == key) {
                     this.values[i].priority = newPriority
                     this.bubbleUp()
                     break
                 }
             }
+            // console.log("callsing 4")
+
             return true
         }
     }

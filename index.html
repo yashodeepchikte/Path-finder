@@ -16,6 +16,7 @@
 			<button onclick="dijkstras()">Run Dikjstra</button>
 			<button onclick="DFS()">Run DFS</button>
 			<br />
+
 			<button onclick="recursiveBacktracker()">Run Recursive backtracker maze generation</button>
 			<button onclick="DFS_MazeGenerator()">Run DFS maze generation</button>
 		
@@ -31,8 +32,24 @@
 			<button id="reset" onclick="randomMaze()">Generate a random Maze</button>
 			<button onclick="createBlackMaze()">Cover entire maze</button>
 			<br />
+
+			
+			<div class="selector">
+				<label for="selector" class="nav-link active pr-1">Distance Measure</label>
+				<select class="form-control" id="distance"  >
+					<option>Euclidean Distance</option>
+					<option>Manhattan Distance</option>
+					<option>Chess Board Distance</option>
+				</select>
+			</div>
 		</div>
 		
+
+
+	
+
+
+
 
 		<table>
 			<tr>

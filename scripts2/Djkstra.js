@@ -46,9 +46,6 @@ const djkstra = (event) => {
         for (i = 0; i < neighbourers.length; i++) {
             let neighbourer = neighbourers[i]
             let [neb_r, neb_c] = getIndex(neighbourer)
-            // console.log("nebrower = ", neighbourer)
-            // console.log("neb_r = ", neb_r)
-            // console.log("neb_c = ", neb_c)
 
             if (weights[getString(r, c)] && weights[getString(neb_r, neb_c)]) {
 

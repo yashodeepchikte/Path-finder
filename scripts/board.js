@@ -125,18 +125,31 @@ for (var c = 0; c < tileColumnCount; c++) {
 }
 
 //  Adding neighbours to the tiles
-for (var c = 0; c < tileColumnCount; c++) {
-    for (var r = 0; r < tileRowCount; r++) {
-        var neighbours = []
-
-        if (c > 0) { neighbours.push(tiles[c - 1][r]) }
-        if (r > 0) { neighbours.push(tiles[c][r - 1]) }
-        if (c < tileColumnCount - 1) { neighbours.push(tiles[c + 1][r]) }
-        if (r < tileRowCount - 1) { neighbours.push(tiles[c][r + 1]) }
-
-        tiles[c][r].neighbours = neighbours
+const handelNeighboursChange = () => {
+    var selector = document.getElementById("Neighbours").value
+    console.log("inti neighbours was called")
+    for (var c = 0; c < tileColumnCount; c++) {
+        for (var r = 0; r < tileRowCount; r++) {
+            var neighbours = []
+            if (selector === "4-Adjcent Neighbours" || selector === "All 8 Neighbours") {
+                if (c > 0) { neighbours.push(tiles[c - 1][r]) }
+                if (r > 0) { neighbours.push(tiles[c][r - 1]) }
+                if (c < tileColumnCount - 1) { neighbours.push(tiles[c + 1][r]) }
+                if (r < tileRowCount - 1) { neighbours.push(tiles[c][r + 1]) }
+            }
+            if (selector === "Diagonal Neighbours" || selector === "All 8 Neighbours") {
+                if (c > 0 && r > 0) { neighbours.push(tiles[c - 1][r - 1]) }
+                if (c > 0 && r < tileRowCount - 1) { neighbours.push(tiles[c - 1][r + 1]) }
+                if (c < tileColumnCount - 1 && r > 0) { neighbours.push(tiles[c + 1][r - 1]) }
+                if (c < tileColumnCount - 1 && r < tileRowCount - 1) { neighbours.push(tiles[c + 1][r + 1]) }
+            }
+            tiles[c][r].neighbours = neighbours
+        }
     }
 }
+
+handelNeighboursChange()
+
 // console.log("tiles = ", tiles)
 
 
@@ -417,6 +430,7 @@ function randomMaze() {
 }
 
 function handelMouseMoveStart(e) {
+
     let x = e.pageX - canvas.offsetLeft;
     let y = e.pageY - canvas.offsetTop;
     for (var c = 0; c < tileColumnCount; c++) {
@@ -470,6 +484,7 @@ function handelMouseMove(e) {
 }
 
 function handelMouseDown(e) {
+    clearPath()
     canvas.onmousemove = handelMouseMove;
     let x = e.pageX - canvas.offsetLeft;
     let y = e.pageY - canvas.offsetTop;
@@ -495,6 +510,7 @@ function handelMouseDown(e) {
 }
 
 function handelMouseUp(e) {
+    clearPath()
     canvas.onmousemove = null;
 }
 

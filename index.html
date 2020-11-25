@@ -34,14 +34,25 @@
 			<br />
 
 			
-			<div class="selector">
-				<label for="selector" class="nav-link active pr-1">Distance Measure</label>
+			<span class="selector">
+				<label for="distance" class="nav-link active pr-1">Distance Measure</label>
 				<select class="form-control" id="distance"  >
 					<option>Euclidean Distance</option>
 					<option>Manhattan Distance</option>
 					<option>Chess Board Distance</option>
+					<option>Camberaa Distance</option>
+					<option>Cosine Distance</option>
 				</select>
-			</div>
+			</span>
+
+			<span class="selector">
+				<label for="Neighbours" class="nav-link active pr-1">Neighbours</label>
+				<select class="form-control" id="Neighbours" onchange="handelNeighboursChange()" >
+					<option>4-Adjcent Neighbours</option>
+					<option>Diagonal Neighbours</option>
+					<option>All 8 Neighbours</option>
+				</select>
+			</span>
 		</div>
 		
 

@@ -13,17 +13,37 @@ function hurestics(a, b) {
 	var dist1
 	switch (distMeasure) {
 		case "Euclidean Distance":
-			console.log("euc")
+			// console.log("euc")
 			return Math.pow((Math.pow((a.column - b.column), 2) + Math.pow(a.row - b.row, 2)), 2)
 
 		case "Manhattan Distance":
-			console.log("man distance")
+			// console.log("man distance")
 			return Math.abs(a.column - b.column) + Math.abs(a.row - b.row)
 		case "Chess Board Distance":
-			console.log("chess dist")
+			// console.log("chess dist")
 			return Math.max(Math.abs(a.column - b.column), Math.abs(a.row - b.row))
+
+		case "Camberaa Distance":
+			let a1 = a.column - b.column
+			let a2 = a.column + b.column
+			let a3 = a1 / a2
+			let b1 = a.row - b.row
+			let b2 = a.row + b.row
+			let b3 = b1 / b2
+			return a3 + b3
+		case "Cosine Distance":
+			var a11 = a.column * b.column
+			var a22 = a.row * b.row
+			var a33 = a11 + a22
+
+			var a4 = a.column * a.column + a.row * a.row
+			var a5 = b.column * b.column + b.row * b.row
+
+			var a6 = a33 / (Math.pow(a4, 0.5) * Math.pow(a5, 0.5))
+			return a6
+
 		default:
-			console.log("default dist")
+			// console.log("default dist")
 			return Math.pow((Math.pow((a.column - b.column), 2) + Math.pow(a.row - b.row, 2)), 2)
 	}
 
@@ -105,6 +125,30 @@ function Astar() {
 			openSet = []
 
 			return
+		}
+		var selector = document.getElementById("Neighbours").value
+		if (selector == "Diagonal Neighbours") {
+			if (
+				(currentNode.column - 1 == tiles[end[0]][end[1]].column
+					&& currentNode.row == tiles[end[0]][end[1]].row)
+				||
+				(currentNode.column + 1 == tiles[end[0]][end[1]].column
+					&& currentNode.row == tiles[end[0]][end[1]].row)
+				||
+				(currentNode.column == tiles[end[0]][end[1]].column
+					&& currentNode.row - 1 == tiles[end[0]][end[1]].row)
+				||
+				(currentNode.column + 1 == tiles[end[0]][end[1]].column
+					&& currentNode.row == tiles[end[0]][end[1]].row)
+			) {
+				solved = true
+				isRunning = false
+				clearPath()
+				tiles[tiles[end[0]][end[1]].column][tiles[end[0]][end[1]].row].previous = tiles[currentNode.column][currentNode.row]
+				setTimeout(showPath, delay)
+				openSet = []
+				return
+			}
 		}
 		if (closedSet.length > tileRowCount * tileColumnCount) {
 			isRunning = false

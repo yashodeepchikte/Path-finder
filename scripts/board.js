@@ -371,6 +371,7 @@ function createSpiralMaze() {
     tiles[0][0].state = "start"
     tiles[Math.floor(tileColumnCount / 2)][Math.floor(tileRowCount / 2)].state = "end"
     end = [Math.floor(tileColumnCount / 2), Math.floor(tileRowCount / 2)]
+    start = [0, 0]
 }
 
 function clearPath() {
